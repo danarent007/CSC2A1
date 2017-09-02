@@ -33,10 +33,20 @@ public class ForkJoinTask extends RecursiveAction
         if (hi - lo < Main.SEQUENTIAL_CUTOFF)
         {
             //Process
-            for (int i = lo; i < hi+1; i++)
+            
+            for (int i = lo; i < hi; i++)
             {
-              Main.arr[i] = util.getMedian(i, Main.filterWidth);
-                
+                if (
+                        i - (Main.filterWidth-1)/2 < 0 
+                        || 
+                        i + (Main.filterWidth-1)/2 > Main.arr.length-1)
+                {
+                    
+                }
+                else
+                {
+              Main.arr[i] = util.getMedian(i);
+                }
                 
                 
             }
