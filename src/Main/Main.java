@@ -21,8 +21,8 @@ public class Main
 {
     public static double[] arr = new double[1000000];
     public static double[] newArr = new double[1000000];
-    public static int filterWidth = 22;
-    public static int SEQUENTIAL_CUTOFF = 100;
+    public static int filterWidth = 21;
+    public static int SEQUENTIAL_CUTOFF = 1000;
     
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
@@ -40,6 +40,7 @@ public class Main
         }
         
         //Set first & last values (unchanged vals)
+        long time1 = System.currentTimeMillis();
         for (int i = 0; i < ((filterWidth-1)/2); i++)
         {
             newArr[i] = arr[i];
@@ -52,7 +53,8 @@ public class Main
         
         ForkJoinPool fjpool = new ForkJoinPool();
         fjpool.commonPool().invoke(new ForkJoinTask(0,arr.length));
-        System.out.println("Done");
+        System.out.println(System.currentTimeMillis()-time1);
+        
         
         PrintWriter pw = new PrintWriter(new FileWriter("file.txt"));
         for (int i = 0; i < arr.length; i++)
