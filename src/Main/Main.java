@@ -5,6 +5,12 @@
  */
 package Main;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -13,21 +19,42 @@ import java.util.concurrent.ForkJoinPool;
  */
 public class Main
 {
-    public static double[] arr;
-    public static int filterWidth;
-    public static int SEQUENTIAL_CUTOFF = 5;
+    public static double[] arr = new double[1000000];
+    public static double[] newArr = new double[1000000];
+    public static int filterWidth = 3;
+    public static int SEQUENTIAL_CUTOFF = 10;
     
-    public static void main(String[] args)
+    public static void main(String[] args) throws FileNotFoundException, IOException
     {
         
-        //double[] arr = {1,2,3,4,5,6,7,8,9};
+       //Read file
+        BufferedReader br = new BufferedReader(new FileReader ("sampleinputfile.txt"));
+        String tmp = br.readLine();
+        tmp = br.readLine();
+        int count = 0;
         
-        int filterWidth = 5;
+        while (tmp != null){
+            arr[count] = Double.parseDouble(tmp.split(" ")[1]);
+            count++;
+            tmp = br.readLine();
+        }
+        
+        
+       
+        
 
         
         ForkJoinPool fjpool = new ForkJoinPool();
         fjpool.commonPool().invoke(new ForkJoinTask(0,arr.length));
         System.out.println("Done");
+        
+        PrintWriter pw = new PrintWriter(new FileWriter("file.txt"));
+        for (int i = 0; i < arr.length; i++)
+        {
+            pw.println(newArr[i] + " ");
+        }
+        pw.close();
+        
         
     }
     
