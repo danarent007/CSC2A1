@@ -16,7 +16,7 @@ public class ForkJoinTask extends RecursiveAction
     
     int lo;
     int hi;
-    public static int SEQUENTIAL_CUTOFF = 5;
+    
     public Utilities util;
 
     public ForkJoinTask(int lo, int hi)
@@ -29,17 +29,17 @@ public class ForkJoinTask extends RecursiveAction
     
     
     protected void compute(){
-        if (hi - lo < SEQUENTIAL_CUTOFF)
+        
+        if (hi - lo < Main.SEQUENTIAL_CUTOFF)
         {
             //Process
             for (int i = lo; i < hi+1; i++)
             {
-              //  Main.arr[] 
+              Main.arr[i] = util.getMedian(i, Main.filterWidth);
+                
+                
                 
             }
-            
-            
-            
         }
         else
         {
