@@ -21,8 +21,8 @@ public class Main
 {
     public static double[] arr = new double[1000000];
     public static double[] newArr = new double[1000000];
-    public static int filterWidth = 3;
-    public static int SEQUENTIAL_CUTOFF = 10;
+    public static int filterWidth = 22;
+    public static int SEQUENTIAL_CUTOFF = 100;
     
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
@@ -39,6 +39,12 @@ public class Main
             tmp = br.readLine();
         }
         
+        //Set first & last values (unchanged vals)
+        for (int i = 0; i < ((filterWidth-1)/2); i++)
+        {
+            newArr[i] = arr[i];
+            newArr[newArr.length-1-i] = arr[arr.length-1-i];
+        }
         
        
         
