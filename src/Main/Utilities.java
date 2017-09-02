@@ -22,8 +22,10 @@ public class Utilities
     }
     
     
-    public double getMedian(int index, int filterWidth){
-        int halfWidth = (filterWidth-1)/2;
+    public double getMedian(int index){
+        int halfWidth = (Main.filterWidth-1)/2;
+        
+        
         
         double[] arr1 = Arrays.copyOfRange(Main.arr, index-halfWidth, index+halfWidth);
         Arrays.sort(arr1);
