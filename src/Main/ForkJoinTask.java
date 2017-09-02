@@ -45,7 +45,7 @@ public class ForkJoinTask extends RecursiveAction
                 }
                 else
                 {
-              Main.arr[i] = util.getMedian(i);
+              Main.newArr[i] = util.getMedian(i);
                 }
                 
                 
