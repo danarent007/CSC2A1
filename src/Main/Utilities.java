@@ -14,22 +14,20 @@ import java.util.Collections;
  */
 public class Utilities
 {
-    double[] arr;
+   
 
-    public Utilities(double[] arr)
+    public Utilities()
     {
-        this.arr = arr;
+        
     }
     
     
     public double getMedian(int index, int filterWidth){
         int halfWidth = (filterWidth-1)/2;
         
-        double[] arr1 = Arrays.copyOfRange(arr, index-halfWidth, index+halfWidth);
+        double[] arr1 = Arrays.copyOfRange(Main.arr, index-halfWidth, index+halfWidth);
         Arrays.sort(arr1);
         return arr1[(arr1.length-1)/2];
-        
-        
         
     }
     
