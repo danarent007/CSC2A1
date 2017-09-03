@@ -5,6 +5,7 @@
  */
 package Main;
 
+import java.util.Arrays;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -17,38 +18,35 @@ public class ForkJoinTask extends RecursiveAction
     int lo;
     int hi;
     
-    public Utilities util;
+
 
     public ForkJoinTask(int lo, int hi)
     {
         
         this.lo = lo;
         this.hi = hi;
-        this.util = new Utilities();
     }
     
     
     protected void compute(){
         
-        if (hi - lo < Main.SEQUENTIAL_CUTOFF)
+        if (hi - lo < MainPar.SEQUENTIAL_CUTOFF)
         {
             //Process
             
             for (int i = lo; i < hi; i++)
             {
                 if (
-                        i - (Main.filterWidth-1)/2 < 0 
+                        i - (MainPar.filterWidth-1)/2 < 0 
                         || 
-                        i + (Main.filterWidth-1)/2 > Main.arr.length-1)
+                        i + (MainPar.filterWidth-1)/2 > MainPar.arr.length-1)
                 {
                     
                 }
                 else
                 {
-              Main.newArr[i] = util.getMedian(i);
-                }
-                
-                
+              MainPar.newArr[i] = getMedian(i);
+                } 
             }
         }
         else
@@ -63,6 +61,12 @@ public class ForkJoinTask extends RecursiveAction
     }
             
             
-    
+        public static double getMedian(int index){
+        int halfWidth = (MainPar.filterWidth-1)/2;
+        double[] arr1 = Arrays.copyOfRange(MainPar.arr, index-halfWidth, index+halfWidth);
+        Arrays.sort(arr1);
+        return arr1[(arr1.length-1)/2];
+        
+    }
     
 }
