@@ -23,6 +23,7 @@ public class Main
     public static double[] newArr = new double[1000000];
     public static int filterWidth = 21;
     public static int SEQUENTIAL_CUTOFF = 1000;
+    public static int items = 1000000;
     
     public static void main(String[] args) throws FileNotFoundException, IOException
     {
@@ -33,7 +34,7 @@ public class Main
         tmp = br.readLine();
         int count = 0;
         
-        while (tmp != null){
+        while (tmp != null && count<items){
             arr[count] = Double.parseDouble(tmp.split(" ")[1]);
             count++;
             tmp = br.readLine();
@@ -53,10 +54,13 @@ public class Main
         
         ForkJoinPool fjpool = new ForkJoinPool();
         fjpool.commonPool().invoke(new ForkJoinTask(0,arr.length));
+        
         System.out.println(System.currentTimeMillis()-time1);
         
         
         PrintWriter pw = new PrintWriter(new FileWriter("file.txt"));
+        
+        pw.println("" + items);
         for (int i = 0; i < arr.length; i++)
         {
             pw.println(newArr[i] + " ");
