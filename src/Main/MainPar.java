@@ -20,9 +20,10 @@ import java.util.concurrent.ForkJoinPool;
 public class MainPar
 {
     
-    public static int filterWidth = 3;
-    public static int SEQUENTIAL_CUTOFF = 10000;
-    public static int items = 1000000;
+    public static int filterWidth = 21;
+    public static int iterations = 50;
+    public static int SEQUENTIAL_CUTOFF = 10;
+    public static int items = 10;
     public static double[] arr = new double[items];
     public static double[] newArr = new double[items];
     
@@ -43,7 +44,7 @@ public class MainPar
         
         //Set first & last values (unchanged vals)
         System.gc();
-        long time1 = System.currentTimeMillis();
+        
         for (int i = 0; i < ((filterWidth-1)/2); i++)
         {
             newArr[i] = arr[i];
@@ -54,10 +55,24 @@ public class MainPar
         
 
         
+            
+        
+        
         ForkJoinPool fjpool = new ForkJoinPool();
+        //Dry run
+        for (int i = 0; i < 10; i++)
+        {
+        fjpool.commonPool().invoke(new ForkJoinTask(0,arr.length));
+        }
+        
+        
+        double time1 = System.currentTimeMillis();
+        for (int i = 0; i < iterations; i++)
+        {
         fjpool.commonPool().invoke(new ForkJoinTask(0,arr.length));
         
-        System.out.println(System.currentTimeMillis()-time1);
+        }
+        System.out.println((System.currentTimeMillis()-time1)/iterations);
         
         
        
